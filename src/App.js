@@ -6,14 +6,20 @@ import './index.css';
 export default function App() {
   const [newName, setNewItem] = useState("")
   const [listName, setlistName] = useState([])
+
   function handleSubmit(e) {
     e.preventDefault();
     if (newName) {
       setlistName([...listName, newName]); // add new name to the list array
       setNewItem(""); //clear the input field
     }
-
   }
+  function handleDelete(index) {
+    const updateName = listName.filter((_, i) => i !== index);
+    console.log(index)
+    setlistName(updateName)
+  }
+
   return (
     <>
       <form onSubmit={handleSubmit} className="new-item-form">
@@ -28,7 +34,7 @@ export default function App() {
         {listName.map((name, index) => (
           <li key={index}>
             <div>{name}</div>
-            <button className='btn btn-danger'>Delete</button>
+            <button className='btn btn-danger' onClick={() => handleDelete(index)}>Delete</button>
           </li>
         ))}
       </ul>
